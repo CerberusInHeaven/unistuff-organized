@@ -1,0 +1,48 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Carro {
+  id          Int         @id @default(autoincrement())
+  modelo      String      @db.VarChar(30)
+  marca       String      @db.VarChar(20)
+  cor         String?     @db.VarChar(30)
+  ano         Int         @db.SmallInt
+  preco       Decimal     @db.Decimal(10, 2)
+  combustivel Combustivel @default(FLEX)
+  km          Int         @db.MediumInt @default(0)
+   usuario    Usuario     @relation(fields: [usuarioId], references: [id])
+  usuarioId    Int
+  @@map("carros")
+}
+
+enum Combustivel {
+  FLEX
+  GASOLINA
+  ALCOOL
+  DIESEL
+  ELETRICIDADE
+}
+
+model Usuario {
+  id           Int      @id @default(autoincrement())
+  nome         String   @db.VarChar(60)
+  email        String   @db.VarChar(40)
+  senha        String   @db.VarChar(60)   // senha deve ser varchar(60)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt  
+  carros      Carro[]
+  
+  @@map("usuarios")
+}
