@@ -1,6 +1,7 @@
 import { Combustivel, PrismaClient } from '@prisma/client'
 import { Router } from 'express'
 import { z } from 'zod'
+import { verificaToken } from '../middleware/VerificaToken'
 
 const prisma = new PrismaClient()
 const router = Router()
@@ -36,7 +37,7 @@ router.get("/", async (req, res) => {
   }
 })
 
-router.post("/", async (req, res) => {
+router.post("/", verificaToken, async (req, res) => {
 
   const valida = carroSchema.safeParse(req.body)
   if (!valida.success) {

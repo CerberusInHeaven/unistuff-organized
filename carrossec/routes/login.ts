@@ -18,6 +18,7 @@ router.post("/", async (req, res) => {
     res.status(400).json({ erro: mensaPadrao })
     return
   }
+ 
 
   try {
     const usuario = await prisma.usuario.findFirst({
@@ -50,13 +51,13 @@ router.post("/", async (req, res) => {
     } else {
       // res.status(400).json({ erro: "Senha incorreta" })
 
-      await prisma.log.create({
-        data: { 
-          descricao: "Tentativa de Acesso Inválida", 
-          complemento: `Funcionário: ${usuario.email}`,
-          usuarioId: usuario.id
-        }
-      })
+      //await prisma.log.create({
+        //data: { 
+          //descricao: "Tentativa de Acesso Inválida", 
+          //complemento: `Funcionário: ${usuario.email}`,
+          //usuarioId: usuario.id
+        //}
+      //})
 
       res.status(400).json({ erro: mensaPadrao })
     }
