@@ -14,7 +14,10 @@ def inicializar_campo(tamanho, num_minas):
             minas_colocadas += 1
             
     return campo
-
+#
+#
+#
+#
 # exibe o campo (só células reveladas)
 def mostrar_campo(campo, reveladas):
     for i in range(len(campo)):
@@ -25,7 +28,11 @@ def mostrar_campo(campo, reveladas):
             else:
                 linha += '_ '
         print(linha)
-
+#
+#
+#
+#
+#
 # conta as minas no campo minado 
 def contar_minas(campo, x, y):
     tamanho = len(campo)
@@ -36,10 +43,10 @@ def contar_minas(campo, x, y):
                 minas += 1
     return minas
 
-# inicializa essa baça inteira
+# inicializa essa bagaça inteira
 def jogar():
-    tamanho = 5  
-    num_minas = 5  
+    tamanho = 5 
+    num_minas = 5
     campo = inicializar_campo(tamanho, num_minas)
     reveladas = [[False for _ in range(tamanho)] for _ in range(tamanho)]
     pontuacao = 0
@@ -86,5 +93,4 @@ def exibir_ranking():
     except FileNotFoundError:
         print("Nenhum ranking encontrado.")
 
-# Inicia o jogo
 jogar()
